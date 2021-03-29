@@ -12,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,6 +23,9 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
@@ -39,6 +43,7 @@ import java.util.concurrent.Executors;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.itis.javalab.repositories")
+@EnableJdbcHttpSession
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "ru.itis.javalab")
@@ -149,17 +154,18 @@ public class ApplicationConfig {
 
     private Properties additionalProperties(){
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto","create-drop");
+        properties.setProperty("hibernate.hbm2ddl.auto","create");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.setProperty("hibernate.show_sql","true");
-        properties.setProperty("hibernate.physical_naming_strategy","org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
 
         properties.setProperty("hibernate.hbm2ddl.import_files_sql_extractor", "org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor");
         properties.setProperty("hibernate.connection.charSet","UTF-8");
-        properties.setProperty("hibernate.hbm2ddl.import_files","schema.sql");
+        properties.setProperty("hibernate.hbm2ddl.import_files","/org/springframework/session/jdbc/schema-postgresql.sql,/schema.sql");
         properties.setProperty("connection.autocommit","true");
+        properties.setProperty("hibernate.physical_naming_strategy","ru.itis.javalab.hibernateSnackConfig.SnakeCasePhysicalNamingStrategy");
 
         return properties;
     }
+
 
 }
