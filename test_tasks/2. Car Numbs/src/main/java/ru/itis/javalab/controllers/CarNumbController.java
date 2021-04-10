@@ -13,19 +13,25 @@ public class CarNumbController {
     CarNumbService carNumbService;
 
     @GetMapping("number/next")
-    public String getNextNumb(){
+    public String getNextNumb() {
         StringBuilder string = new StringBuilder();
-        CarNumbDto carNumbDto = carNumbService.getNextNumb();
-        string.append(carNumbDto.getValue()).append(" ").append(carNumbDto.getRegion());
-        return string.toString();
+        try {
+            CarNumbDto carNumbDto = carNumbService.getNextNumb();
+            string.append(carNumbDto.getValue()).append(" ").append(carNumbDto.getRegion());
+            return string.toString();
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
     @GetMapping("number/random")
     public String getRandomNumb() {
         StringBuilder string = new StringBuilder();
-        CarNumbDto carNumbDto = carNumbService.getRandomNumb();
-        string.append(carNumbDto.getValue()).append(" ").append(carNumbDto.getRegion());
-        return string.toString();
+        try {
+            CarNumbDto carNumbDto = carNumbService.getRandomNumb();
+            string.append(carNumbDto.getValue()).append(" ").append(carNumbDto.getRegion());
+            return string.toString();
+        } catch (IllegalArgumentException e){
+            return e.getMessage();
+        }
     }
-
-
 }
