@@ -1,0 +1,11 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "marsel.sidikov@gmail.com",
+  "password": "qwerty007"
+}
+
+####
+GET http://localhost:8080/doctors/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmFtZSI6Im1hcnNlbCIsInJvbGUiOiJBRE1JTiJ9.CUZPvUJsC0e7hlQkBe-9Gt_9pmUo4d70xPuCYLRyAmw
