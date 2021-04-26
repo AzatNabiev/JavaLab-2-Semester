@@ -1,0 +1,19 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "marsel.sidikov@gmail.com",
+  "password": "qwerty007"
+}
+
+####
+GET http://localhost:8080/doctors/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmFtZSI6Im1hcnNlbCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxOTQyNzQ4NiwiZXhwIjoxNjE5NDI3NjY2fQ.m1sjvpvxW5OhRJt62Xm75gXpyJ9NeMw1teRQ4Ws9au8
+
+#####
+"accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmFtZSI6Im1hcnNlbCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxOTQxOTA2MywiZXhwIjoxNjE5NDE5MjQzfQ.oFO1SaiAzhCLqsR2qdNVsvwixsSuTAU_-Ay_od6ZQrk",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmFtZSI6Im1hcnNlbCIsInJvbGUiOiJBRE1JTiIsImVtYWlsIjoibWFyc2VsLnNpZGlrb3ZAZ21haWwuY29tIiwiaWF0IjoxNjE5NDE5MDYzLCJleHAiOjE2MTk0MjI2NjN9.OZ40FLqi3hm2jrC48qeNCUPEv239ykFCwDAUr2nrDzc"
+#####
+
+GET http://localhost:8080/refresh/
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwibmFtZSI6Im1hcnNlbCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYxOTQyNzQ4NiwiZXhwIjoxNjE5NDI3NjY2fQ.m1sjvpvxW5OhRJt62Xm75gXpyJ9NeMw1teRQ4Ws9au8
