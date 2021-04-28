@@ -40,8 +40,6 @@ public class RefreshServiceImpl implements RefreshService {
     public TokenDto refreshed(String token) {
         String id = getId(token);
         Optional<User> user = userRepository.findById(Long.parseLong(id));
-        UserDetailsImpl userDetails = new UserDetailsImpl(user.get());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
         return loginService.getAccessToken(user.get());
     }
     private String getId(String token){

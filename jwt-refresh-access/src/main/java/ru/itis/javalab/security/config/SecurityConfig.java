@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.itis.javalab.security.token.JwtAuthFilter;
 import ru.itis.javalab.security.token.JwtAuthenticationProvider;
+import ru.itis.javalab.security.token.JwtRefreshFilter;
 
 
 @EnableWebSecurity
@@ -25,10 +26,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("jwtAuthenticationFilter")
     private JwtAuthFilter jwtAuthFilter;
 
+    @Autowired
+    private JwtRefreshFilter refreshFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(refreshFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
