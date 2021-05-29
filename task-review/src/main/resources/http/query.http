@@ -1,0 +1,56 @@
+POST http://localhost:8080/addUser
+Content-Type: application/json
+
+{
+  "login": "test@gmail.com",
+  "name": "Azat"
+}
+
+###
+POST http://localhost:8080/addUser
+Content-Type: application/json
+
+{
+  "login": "test1@gmail.com",
+  "name": "Daniil"
+}
+
+###
+
+POST http://localhost:8080/addEvent
+Content-Type: application/json
+
+{
+  "login": "test@gmail.com",
+  "name": "пара в JavaLab",
+  "eventStarts": "2019-12-25 19:00:13",
+  "eventEnds": "2019-12-25 20:30:00"
+}
+###
+POST http://localhost:8080/addEvent
+Content-Type: application/json
+
+{
+  "login": "test@gmail.com",
+  "name": "пара в JavaLab",
+  "eventStarts": "2019-12-25 00:00:00",
+  "eventEnds": "2019-12-25 01:30:00"
+}
+###
+POST http://localhost:8080/addSeveralEvents
+Content-Type: application/json
+
+{
+   "logins":["test1@gmail.com","test@gmail.com"],
+   "name": "Созвон по проекту",
+   "eventStarts": "2019-12-25 19:00:13",
+   "eventEnds": "2019-12-25 20:30:00"
+}
+###
+
+POST http://localhost:8080/showFreeTime
+Content-Type: application/json
+
+{
+    "logins":["test1@gmail.com","test@gmail.com"]
+}
