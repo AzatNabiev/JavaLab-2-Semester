@@ -86,22 +86,26 @@ public class ScheduleServiceImpl implements ScheduleService {
                         .eventStarts(freeTimeStarts)
                         .eventEnds(eventEnds)
                         .build();
+                break;
             } else if ( ((eventStarts.isAfter(freeTimeStarts) || eventStarts.isEqual(freeTimeStarts))
                     &&(eventStarts.isBefore(freeTimeEnds))) && (eventEnds.isAfter(freeTimeEnds))){
                 newEvent = Event.builder()
                         .eventStarts(eventStarts)
                         .eventEnds(freeTimeEnds)
                         .build();
+                break;
             } else if( eventStarts.isAfter(freeTimeStarts) && eventEnds.isBefore(freeTimeEnds)) {
                 newEvent = Event.builder()
                         .eventStarts(eventStarts)
                         .eventEnds(eventEnds)
                         .build();
+                break;
             } else if(eventStarts.isBefore(freeTimeStarts) && eventEnds.isAfter(freeTimeEnds)){
                 newEvent = Event.builder()
                         .eventStarts(freeTimeStarts)
                         .eventEnds(freeTimeEnds)
                         .build();
+                break;
             }
         }
         return Optional.ofNullable(newEvent);

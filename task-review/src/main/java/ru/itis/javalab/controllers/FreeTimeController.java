@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.javalab.dto.EventDto;
+import ru.itis.javalab.models.Event;
 import ru.itis.javalab.services.ScheduleService;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class FreeTimeController {
 
     @PostMapping("/showFreeTime")
     public ResponseEntity<List<EventDto>> getFreeTime(@RequestBody EventDto eventDto){
-        return ResponseEntity.ok(scheduleService.getFreeTime(eventDto));
+        List<EventDto> events = scheduleService.getFreeTime(eventDto);
+        return ResponseEntity.ok(events);
     }
 }
