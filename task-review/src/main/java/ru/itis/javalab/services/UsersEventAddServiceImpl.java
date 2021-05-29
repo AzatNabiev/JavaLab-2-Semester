@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.javalab.dto.EventDto;
 import ru.itis.javalab.exception.AlreadyExistEventException;
-import ru.itis.javalab.exception.NoSuchEventException;
 import ru.itis.javalab.exception.NoSuchUserException;
 import ru.itis.javalab.models.Event;
 import ru.itis.javalab.models.User;
@@ -17,15 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsersEventServiceImpl implements UsersEventService {
+public class UsersEventAddServiceImpl implements UsersEventAddService {
 
     private UserRepository userRepository;
     private EventRepository eventRepository;
     private UserEventService userEventService;
 
     @Autowired
-    public UsersEventServiceImpl(UserRepository userRepository, EventRepository eventRepository,
-                                 UserEventService userEventService) {
+    public UsersEventAddServiceImpl(UserRepository userRepository, EventRepository eventRepository,
+                                    UserEventService userEventService) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.userEventService = userEventService;
