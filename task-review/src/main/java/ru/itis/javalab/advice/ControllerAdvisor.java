@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ru.itis.javalab.exception.AlreadyExistEventException;
 import ru.itis.javalab.exception.NoFreeTimeException;
 import ru.itis.javalab.exception.NoSuchEventException;
 import ru.itis.javalab.exception.NoSuchUserException;
@@ -56,4 +57,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(AlreadyExistEventException.class)
+    public ResponseEntity<Object> handleAlreadyExistEventException(
+            AlreadyExistEventException ex, WebRequest webRequest){
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "Event already exist");
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
 }

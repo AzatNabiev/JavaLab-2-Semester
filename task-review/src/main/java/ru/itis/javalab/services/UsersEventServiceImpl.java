@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.javalab.dto.EventDto;
+import ru.itis.javalab.exception.AlreadyExistEventException;
 import ru.itis.javalab.exception.NoSuchEventException;
 import ru.itis.javalab.exception.NoSuchUserException;
 import ru.itis.javalab.models.Event;
@@ -38,7 +39,7 @@ public class UsersEventServiceImpl implements UsersEventService {
             LocalDateTime currentTime = LocalDateTime.now();
             for (User user : users) {
                 if (!userEventService.isEventExist(eventDto.getEventStarts(), eventDto.getEventEnds(), user.getId())) {
-                    throw new NoSuchEventException("already has event");
+                    throw new AlreadyExistEventException("event already exist");
                 } else {
                     Event newEvent = Event.builder().eventName(eventDto.getName())
                             .addedTime(currentTime)
