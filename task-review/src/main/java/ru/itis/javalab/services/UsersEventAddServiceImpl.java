@@ -37,7 +37,7 @@ public class UsersEventAddServiceImpl implements UsersEventAddService {
         if (!users.isEmpty()) {
             LocalDateTime currentTime = LocalDateTime.now();
             for (User user : users) {
-                if (!userEventService.isEventExist(eventDto.getEventStarts(), eventDto.getEventEnds(), user.getId())) {
+                if (!userEventService.isEventExist(eventDto.getEventStarts(), eventDto.getEventEnds(), user)) {
                     throw new AlreadyExistEventException("event already exist");
                 } else {
                     Event newEvent = Event.builder().eventName(eventDto.getName())

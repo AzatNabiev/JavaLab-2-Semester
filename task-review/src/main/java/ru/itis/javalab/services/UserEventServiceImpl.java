@@ -32,7 +32,7 @@ public class UserEventServiceImpl implements UserEventService {
         if (userOptional.isPresent()) {
             User currentUser = userOptional.get();
             LocalDateTime currentTime = LocalDateTime.now();
-            if (!isEventExist(eventDto.getEventStarts(), eventDto.getEventEnds(), currentUser.getId())) {
+            if (!isEventExist(eventDto.getEventStarts(), eventDto.getEventEnds(), currentUser)) {
                 Event newEvent = Event.builder().eventName(eventDto.getName())
                         .addedTime(currentTime)
                         .eventStarts(eventDto.getEventStarts())
@@ -50,8 +50,8 @@ public class UserEventServiceImpl implements UserEventService {
     }
 
     @Override
-    public Boolean isEventExist(LocalDateTime eventStarts, LocalDateTime eventEnds, Long userId) {
-        return eventRepository.checkExistingEvent(eventStarts, eventEnds, userId);
+    public Boolean isEventExist(LocalDateTime eventStarts, LocalDateTime eventEnds, User user) {
+        return eventRepository.checkExistingEvent(eventStarts, eventEnds, user);
     }
 
 }
