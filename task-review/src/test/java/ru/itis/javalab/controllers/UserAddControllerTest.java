@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import ru.itis.javalab.dto.UserDto;
 import ru.itis.javalab.services.UserService;
 import static org.mockito.Mockito.when;
@@ -31,16 +29,14 @@ public class UserAddControllerTest {
 
     @BeforeEach
     public void setUp(){
-        UserDto userDto = UserDto.builder()
+        UserDto testUser = UserDto.builder()
                 .login("test@gmail.com")
                 .name("Azat")
                 .build();
-        when(userService.addUser(userDto)).thenReturn(UserDto.builder()
+        when(userService.addUser(testUser)).thenReturn(UserDto.builder()
         .login("test@gmail.com")
         .name("Azat")
         .build());
-
-
 
     }
 
@@ -58,10 +54,5 @@ public class UserAddControllerTest {
                 .andExpect(jsonPath("$.name", is("Azat")))
                 .andExpect(jsonPath("$.login", is("test@gmail.com")))
                 .andReturn();
-
-    }
-    private String mapToJson(Object object) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(object);
     }
 }

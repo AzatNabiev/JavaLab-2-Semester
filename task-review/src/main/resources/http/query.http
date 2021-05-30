@@ -23,8 +23,8 @@ Content-Type: application/json
 {
   "login": "test@gmail.com",
   "name": "пара в JavaLab",
-  "eventStarts": "2019-12-25 19:00:13",
-  "eventEnds": "2019-12-25 20:30:00"
+  "eventStarts": "2016-12-25 19:00:13",
+  "eventEnds": "2016-12-25 20:30:00"
 }
 ###
 POST http://localhost:8080/addEvent
