@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.itis.javalab.dto.EventDto;
 import ru.itis.javalab.models.Event;
 import ru.itis.javalab.services.ScheduleService;
+import ru.itis.javalab.services.ValidationService;
+
 import java.util.List;
 
 
@@ -15,14 +17,17 @@ import java.util.List;
 public class FreeTimeController {
 
     private ScheduleService scheduleService;
+    private ValidationService validationService;
 
     @Autowired
-    public FreeTimeController(ScheduleService scheduleService){
+    public FreeTimeController(ValidationService validationService,ScheduleService scheduleService){
+        this.validationService = validationService;
         this.scheduleService = scheduleService;
     }
 
     @PostMapping("/showFreeTime")
     public ResponseEntity<List<EventDto>> getFreeTime(@RequestBody EventDto eventDto){
+        validationService.validateEventDto(eventDto);
         List<EventDto> events = scheduleService.getFreeTime(eventDto);
         return ResponseEntity.ok(events);
     }

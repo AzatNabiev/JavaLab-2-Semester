@@ -21,8 +21,4 @@ public interface EventRepository extends JpaRepository<Event,Long> {
                                  @Param("eventEnds") LocalDateTime eventEnds,
                                  @Param("user") User user);
 
-        //        @Query(value = "select exists(select * from event ev where not (:eventStarts <= ev.event_ends and :eventEnds>= ev.event_starts ) and user_id=:userId)", nativeQuery = true)
-//        boolean checkExistingEvent(@Param("eventStarts") LocalDateTime eventStarts,
-//                                   @Param("eventEnds") LocalDateTime eventEnds,
-//                                   @Param("userId") Long userId);
 }

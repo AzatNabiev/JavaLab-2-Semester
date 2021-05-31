@@ -60,7 +60,7 @@ public class UserEventAddControllerTest {
         String jsonVal = "{\n" +
                 "\"login\":\"test@gmail.com\",\n" +
                 "\"logins\":null,\n" +
-                "\"name\":\"пара JavaLab\",\n" +
+                "\"name\":\"JavaLab\",\n" +
                 "\"eventStarts\":\"2029-12-25 01:20:31\",\n" +
                 "\"eventEnds\":\"2029-12-25 01:30:31\"\n" +
                 "}";

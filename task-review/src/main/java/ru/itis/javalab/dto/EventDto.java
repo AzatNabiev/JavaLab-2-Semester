@@ -3,6 +3,9 @@ package ru.itis.javalab.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import ru.itis.javalab.models.Event;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +15,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 public class EventDto {
+    @Email
     private String login;
     private String[] logins;
     private String name;

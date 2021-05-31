@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.javalab.models.User;
 
+import javax.validation.constraints.Email;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 public class UserDto {
     private String name;
+    @Email
     private String login;
 
     public static UserDto from(User user){
