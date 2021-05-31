@@ -41,7 +41,7 @@ POST http://localhost:8080/addSeveralEvents
 Content-Type: application/json
 
 {
-   "logins":["test1@gmail.com","test@gmail.com"],
+   "logins":["tesgmail.com","test@gmail.com"],
    "name": "Созвон по проекту",
    "eventStarts": "2019-12-25 19:00:13",
    "eventEnds": "2019-12-25 20:30:00"

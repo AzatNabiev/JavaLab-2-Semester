@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ScheduleService {
     List<EventDto> getFreeTime(EventDto eventDto);
-    List<User> checkExistingUsers(String[] userLogins);
+    List<User> checkExistingUsers(List<String> userLogins);
     Optional<Event> findIntersection(List<Event> mergedFreeTime, Event event);
     List<Event> getMergedCommonSchedule(List<Event> mergedFreeTime, List<Event> usersFreeTime);
 }

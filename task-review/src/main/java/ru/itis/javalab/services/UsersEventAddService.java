@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface UsersEventAddService {
     EventDto addEvents(EventDto eventDto);
-    List<User> checkExistingUsers(String[] userLogins);
+    List<User> checkExistingUsers(List<String> userLogins);
 }

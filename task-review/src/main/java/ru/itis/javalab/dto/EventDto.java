@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class EventDto {
     @Email
     private String login;
-    private String[] logins;
+    private List<@Email String> logins;
     private String name;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventStarts;

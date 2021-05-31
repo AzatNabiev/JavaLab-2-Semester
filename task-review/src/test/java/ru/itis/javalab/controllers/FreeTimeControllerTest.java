@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -45,7 +46,7 @@ public class FreeTimeControllerTest {
         LocalDateTime eventEnds = LocalDateTime.of(eventDate,eventTime);
 
         EventDto eventDto = EventDto.builder()
-                .logins(new String[]{"test@gmail.com","test1@gmail.com"})
+                .logins(Arrays.asList("test@gmail.com","test1@gmail.com"))
                 .build();
 
         EventDto returnedEvent = EventDto.builder().eventStarts(eventStarts)

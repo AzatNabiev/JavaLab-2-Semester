@@ -15,6 +15,7 @@ import ru.itis.javalab.services.UsersEventAddService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,13 +41,13 @@ public class UsersEventAddControllerTest {
         LocalDateTime eventEnds = LocalDateTime.of(eventDate,eventTime);
 
         EventDto eventDto = EventDto.builder()
-                .logins(new String[]{"test@gmail.com","test1@gmail.com"})
+                .logins(Arrays.asList("test@gmail.com","test1@gmail.com"))
                 .eventStarts(eventStarts)
                 .eventEnds(eventEnds)
                 .build();
         when(usersEventAddService.addEvents(eventDto)).thenReturn(
                 EventDto.builder()
-                        .logins(new String[]{"test@gmail.com","test1@gmail.com"})
+                        .logins(Arrays.asList("test@gmail.com","test1@gmail.com"))
                         .eventStarts(eventStarts)
                         .eventEnds(eventEnds)
                         .build()

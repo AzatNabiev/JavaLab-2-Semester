@@ -58,7 +58,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<User> checkExistingUsers(String[] userLogins) {
+    public List<User> checkExistingUsers(List<String> userLogins) {
         List<User> users = new ArrayList<>();
         for (String userLogin : userLogins) {
             Optional<User> user = userRepository.findByEmail(userLogin);
