@@ -9,13 +9,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import ru.itis.javalab.dto.EventDto;
+import ru.itis.javalab.exception.IncorrectGivenData;
 import ru.itis.javalab.services.UserEventService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.hamcrest.Matchers.is;
@@ -53,6 +56,10 @@ public class UserEventAddControllerTest {
                 .eventStarts(eventStarts)
                 .eventEnds(eventEnds)
                 .build());
+        doThrow(new IncorrectGivenData("Incorrect given data"))
+                .when(userEventService)
+                .addEvent(EventDto.builder()
+                        .login("testgmail.com").build());
     }
 
     @Test
@@ -71,6 +78,16 @@ public class UserEventAddControllerTest {
                             .andDo(print())
                             .andExpect(status().isOk())
                             .andReturn();
+    }
+    @Test
+    public void throws_exception_for_incorrect_emails() throws Exception {
+        mockMvc.perform(post("/addSeveralEvents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"login\": \"testgmail.com\"\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
     }
 
 

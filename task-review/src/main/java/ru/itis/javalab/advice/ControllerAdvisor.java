@@ -66,7 +66,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IncorrectGivenData.class)
     public ResponseEntity<Object> handleIncorrectGivenDataException(
-            AlreadyExistEventException ex, WebRequest webRequest){
+            IncorrectGivenData ex, WebRequest webRequest){
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());

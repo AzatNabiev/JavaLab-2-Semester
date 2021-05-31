@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.itis.javalab.dto.EventDto;
+import ru.itis.javalab.exception.IncorrectGivenData;
 import ru.itis.javalab.models.Event;
 import ru.itis.javalab.services.ScheduleService;
 
@@ -21,8 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -56,6 +59,10 @@ public class FreeTimeControllerTest {
         List<EventDto> events = new ArrayList<>();
         events.add(returnedEvent);
         when(scheduleService.getFreeTime(eventDto)).thenReturn(events);
+        doThrow(new IncorrectGivenData("Incorrect given data"))
+                .when(scheduleService)
+                .getFreeTime(EventDto.builder()
+                        .logins(Arrays.asList("testgmail.com","test1@gmail.com")).build());
     }
 
 
@@ -70,6 +77,16 @@ public class FreeTimeControllerTest {
                 .characterEncoding("utf-8"))
                 .andExpect(status().isOk())
                 .andReturn();
+    }
+    @Test
+    public void throws_exception_for_incorrect_emails() throws Exception {
+        mockMvc.perform(post("/addSeveralEvents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "   \"logins\":[\"tesgmail.com\",\"test@gmail.com\"]\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
     }
 
 

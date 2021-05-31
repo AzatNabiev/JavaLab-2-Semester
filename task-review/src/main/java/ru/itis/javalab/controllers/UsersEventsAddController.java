@@ -23,6 +23,7 @@ public class UsersEventsAddController {
 
     @PostMapping("/addSeveralEvents")
     public ResponseEntity<EventDto> addEvents(@RequestBody EventDto eventDto){
+        int i=0;
         validationService.validateEventDto(eventDto);
         return ResponseEntity.ok(usersEventAddService.addEvents(eventDto));
     }

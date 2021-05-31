@@ -10,6 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.itis.javalab.dto.EventDto;
+import ru.itis.javalab.dto.UserDto;
+import ru.itis.javalab.exception.IncorrectGivenData;
 import ru.itis.javalab.services.UsersEventAddService;
 
 import java.time.LocalDate;
@@ -17,8 +19,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -50,8 +54,11 @@ public class UsersEventAddControllerTest {
                         .logins(Arrays.asList("test@gmail.com","test1@gmail.com"))
                         .eventStarts(eventStarts)
                         .eventEnds(eventEnds)
-                        .build()
-        );
+                        .build());
+        doThrow(new IncorrectGivenData("Incorrect given data"))
+                .when(usersEventAddService)
+                .addEvents(EventDto.builder()
+                        .logins(Arrays.asList("testgmail.com","test1@gmail.com")).build());
     }
 
     @Test
@@ -67,5 +74,15 @@ public class UsersEventAddControllerTest {
                 .characterEncoding("utf-8"))
                 .andExpect(status().isOk())
                 .andReturn();
+    }
+    @Test
+    public void throws_exception_for_incorrect_emails() throws Exception {
+        mockMvc.perform(post("/addSeveralEvents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "   \"logins\":[\"tesgmail.com\",\"test@gmail.com\"]\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
     }
 }

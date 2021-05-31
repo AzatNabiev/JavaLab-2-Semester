@@ -8,10 +8,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+
+import static org.mockito.Mockito.doThrow;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
 import ru.itis.javalab.dto.UserDto;
+import ru.itis.javalab.exception.IncorrectGivenData;
 import ru.itis.javalab.services.UserService;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,6 +42,10 @@ public class UserAddControllerTest {
         .name("Azat")
         .build());
 
+        doThrow(new IncorrectGivenData("Incorrect given data"))
+                .when(userService)
+                .addUser(UserDto.builder()
+                .login("testtest").build());
     }
 
     @Test
@@ -55,4 +63,16 @@ public class UserAddControllerTest {
                 .andExpect(jsonPath("$.login", is("test@gmail.com")))
                 .andReturn();
     }
+    @Test
+    public void throws_exception_for_incorrect_email() throws Exception {
+        mockMvc.perform(post("/userAdd")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "  \"login\": \"testgmail.com\",\n" +
+                        "  \"name\": \"Daniil\"\n" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
 }
