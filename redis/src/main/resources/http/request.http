@@ -1,0 +1,36 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "batrshintimur@yandex.ru",
+  "password": "Timur007"
+}
+
+###
+POST http://localhost:8080/sign_up
+Content-Type: application/json
+
+{
+  "email": "batrshintimur@yandex.ru",
+  "password": "Timur007",
+  "firstName": "Timur",
+  "lastName" : "Batrshin"
+}
+
+###
+POST http://localhost:8080/teachers
+Content-Type: application/json
+
+{
+  "firstName": "Timur",
+  "lastName": "Batrshin"
+}
+
+###
+
+GET http://localhost:8080/logout
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Iiwicm9sZSI6IkFETUlOIiwic3RhdGUiOiJBQ1RJVkUiLCJlbWFpbCI6ImJhdHJzaGludGltdXJAeWFuZGV4LnJ1In0.PoWf8Popp03gq8iEnGSqNOjpZlk39l5LahD-Jfs6v40
+###
+
+POST http://localhost:8080/users/5/block
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Iiwicm9sZSI6IkFETUlOIiwic3RhdGUiOiJBQ1RJVkUiLCJlbWFpbCI6ImJhdHJzaGludGltdXJAeWFuZGV4LnJ1In0.PoWf8Popp03gq8iEnGSqNOjpZlk39l5LahD-Jfs6v40
